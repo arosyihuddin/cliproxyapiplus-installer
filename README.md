@@ -1,4 +1,4 @@
-# CLIProxyAPI Linux Installer
+# CLIProxyAPIPlus Linux Installer
 
 A comprehensive Linux installation script for [CLIProxyAPIPlus](https://github.com/router-for-me/CLIProxyAPIPlus) that automates installation, upgrades, and management of the CLIProxyAPIPlus service. Installer repo: https://github.com/arosyihuddin/cliproxyapiplus-installer
 
@@ -39,18 +39,18 @@ cd cliproxyapiplus-installer
 2. **Set up authentication** (choose one or more):
 
    ```bash
-   ./cli-proxy-api --login           # For Gemini
-   ./cli-proxy-api --codex-login     # For OpenAI
-   ./cli-proxy-api --claude-login    # For Claude
-   ./cli-proxy-api --qwen-login      # For Qwen
-   ./cli-proxy-api --iflow-login     # For iFlow
+   ./cli-proxy-api-plus --login           # For Gemini
+   ./cli-proxy-api-plus --codex-login     # For OpenAI
+   ./cli-proxy-api-plus --claude-login    # For Claude
+   ./cli-proxy-api-plus --qwen-login      # For Qwen
+   ./cli-proxy-api-plus --iflow-login     # For iFlow
    ```
 
 3. **Start the service**:
 
    ```bash
    # Direct execution
-   ./cli-proxy-api
+   ./cli-proxy-api-plus
 
    # Or as a systemd service (recommended)
    systemctl --user enable cliproxyapi.service
@@ -74,7 +74,7 @@ cd cliproxyapiplus-installer
 The installer script supports multiple commands:
 
 ```bash
-./cliproxyapi-installer [COMMAND]
+./cliproxyapiplus-installer [COMMAND]
 ```
 
 ### Commands
@@ -94,22 +94,22 @@ The installer script supports multiple commands:
 
 ```bash
 # Install or upgrade to the latest version
-./cliproxyapi-installer
+./cliproxyapiplus-installer
 
 # Check current installation status
-./cliproxyapi-installer status
+./cliproxyapiplus-installer status
 
 # Verify your configuration
-./cliproxyapi-installer check-config
+./cliproxyapiplus-installer check-config
 
 # Generate a new API key
-./cliproxyapi-installer generate-key
+./cliproxyapiplus-installer generate-key
 
 # Show authentication setup info
-./cliproxyapi-installer auth
+./cliproxyapiplus-installer auth
 
 # Uninstall completely
-./cliproxyapi-installer uninstall
+./cliproxyapiplus-installer uninstall
 ```
 
 ## Configuration
@@ -120,7 +120,7 @@ CLIProxyAPI is installed to `~/cliproxyapiplus/` with the following structure:
 
 ```
 ~/cliproxyapiplus/
-├── cli-proxy-api          # Main executable
+├── cli-proxy-api-plus          # Main executable
 ├── config.yaml            # Configuration file
 ├── cliproxyapi.service    # Systemd service file
 ├── version.txt            # Current version info
@@ -143,11 +143,11 @@ nano config.yaml
 
 CLIProxyAPI supports multiple AI providers:
 
-- **Gemini (Google)**: `./cli-proxy-api --login`
-- **OpenAI (Codex/GPT)**: `./cli-proxy-api --codex-login`
-- **Claude (Anthropic)**: `./cli-proxy-api --claude-login`
-- **Qwen (Qwen Chat)**: `./cli-proxy-api --qwen-login`
-- **iFlow**: `./cli-proxy-api --iflow-login`
+- **Gemini (Google)**: `./cli-proxy-api-plus --login`
+- **OpenAI (Codex/GPT)**: `./cli-proxy-api-plus --codex-login`
+- **Claude (Anthropic)**: `./cli-proxy-api-plus --claude-login`
+- **Qwen (Qwen Chat)**: `./cli-proxy-api-plus --qwen-login`
+- **iFlow**: `./cli-proxy-api-plus --iflow-login`
 
 Add `--no-browser` to any login command to print the URL instead of opening a browser automatically.
 
@@ -248,7 +248,7 @@ systemctl --user restart cliproxyapi.service
 
 ### Service Status During Upgrades
 
-When you run `./cliproxyapi-installer upgrade`, the installer will:
+When you run `./cliproxyapiplus-installer upgrade`, the installer will:
 
 1. **Check** if the service is currently running
 2. **Stop** the service gracefully if it's active
@@ -317,14 +317,14 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
 1. **Permission Denied**
 
    ```bash
-   chmod +x cliproxyapi-installer
+   chmod +x cliproxyapiplus-installer
    ```
 
 2. **Missing Dependencies**
 
    ```bash
    # Check what's missing
-   ./cliproxyapi-installer status
+   ./cliproxyapiplus-installer status
 
    # Install required tools
    sudo apt-get install curl wget tar  # Ubuntu/Debian
@@ -333,7 +333,7 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
 3. **API Keys Not Configured**
 
    ```bash
-   ./cliproxyapi-installer check-config
+   ./cliproxyapiplus-installer check-config
    # Follow the instructions to configure API keys
    ```
 
@@ -344,7 +344,7 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
    journalctl --user -u cliproxyapi.service -n 50
 
    # Check configuration
-   ./cliproxyapi-installer check-config
+   ./cliproxyapiplus-installer check-config
    ```
 
 5. **Port Already in Use**
@@ -354,7 +354,7 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
    netstat -tlnp | grep 8317
 
    # Stop the existing process
-   pkill cli-proxy-api
+   pkill cli-proxy-api-plus
 
    # Then restart the service
    systemctl --user restart cliproxyapi.service
@@ -406,13 +406,13 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
 
 ```bash
 # Show all available commands
-./cliproxyapi-installer --help
+./cliproxyapiplus-installer --help
 
 # Check installation status
-./cliproxyapi-installer status
+./cliproxyapiplus-installer status
 
 # Verify configuration
-./cliproxyapi-installer check-config
+./cliproxyapiplus-installer check-config
 ```
 
 ## Security Considerations
@@ -429,10 +429,10 @@ The installer automatically checks for newer versions:
 
 ```bash
 # Check for updates and upgrade if available
-./cliproxyapi-installer upgrade
+./cliproxyapiplus-installer upgrade
 
 # Or simply run (upgrade is the default action)
-./cliproxyapi-installer
+./cliproxyapiplus-installer
 ```
 
 ### Smart Upgrade Process
@@ -471,7 +471,7 @@ This installer script is released under the same license as CLIProxyAPI.
 
 - **CLIProxyAPIPlus Documentation**: https://github.com/router-for-me/CLIProxyAPIPlus
 - **Installer Issues**: https://github.com/arosyihuddin/cliproxyapiplus-installer/issues
-- **General Help**: Run `./cliproxyapi-installer --help`
+- **General Help**: Run `./cliproxyapiplus-installer --help`
 
 ## Changelog
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# CLIProxyAPI Linux Installer
-# Linux-specific script that installs, upgrades, and manages CLIProxyAPI
-# Downloads, installs, and upgrades CLIProxyAPI while preserving configuration
+# CLIProxyAPIPlus Linux Installer
+# Linux-specific script that installs, upgrades, and manages CLIProxyAPIPlus
+# Downloads, installs, and upgrades CLIProxyAPIPlus while preserving configuration
 
 set -euo pipefail
 
@@ -11,7 +11,7 @@ REPO_OWNER="router-for-me"
 REPO_NAME="CLIProxyAPIPlus"
 INSTALL_DIR="$HOME/cliproxyapiplus"
 API_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest"
-SCRIPT_NAME="cliproxyapi-installer"
+SCRIPT_NAME="cliproxyapiplus-installer"
 
 # Colors for output
 RED='\033[0;31m'
@@ -47,31 +47,31 @@ show_authentication_info() {
   echo
   echo -e "${YELLOW}🔐 IMPORTANT: Authentication Setup Required${NC}"
   echo
-  echo -e "${BLUE}CLIProxyAPI supports authentication for multiple providers:${NC}"
+  echo -e "${BLUE}CLIProxyAPIPlus supports authentication for multiple providers:${NC}"
   echo
   echo -e "${GREEN}📚 Full Documentation:${NC} https://github.com/router-for-me/CLIProxyAPIPlus"
   echo
   echo -e "${YELLOW}Authentication Commands:${NC}"
   echo
   echo -e "${GREEN}Gemini (Google):${NC}"
-  echo "  ./cli-proxy-api --login"
-  echo "  ./cli-proxy-api --login --project_id <your_project_id>"
+  echo "  ./cli-proxy-api-plus --login"
+  echo "  ./cli-proxy-api-plus --login --project_id <your_project_id>"
   echo "  (OAuth callback on port 8085)"
   echo
   echo -e "${GREEN}OpenAI (Codex/GPT):${NC}"
-  echo "  ./cli-proxy-api --codex-login"
+  echo "  ./cli-proxy-api-plus --codex-login"
   echo "  (OAuth callback on port 1455)"
   echo
   echo -e "${GREEN}Claude (Anthropic):${NC}"
-  echo "  ./cli-proxy-api --claude-login"
+  echo "  ./cli-proxy-api-plus --claude-login"
   echo "  (OAuth callback on port 54545)"
   echo
   echo -e "${GREEN}Qwen (Qwen Chat):${NC}"
-  echo "  ./cli-proxy-api --qwen-login"
+  echo "  ./cli-proxy-api-plus --qwen-login"
   echo "  (Uses OAuth device flow)"
   echo
   echo -e "${GREEN}iFlow:${NC}"
-  echo "  ./cli-proxy-api --iflow-login"
+  echo "  ./cli-proxy-api-plus --iflow-login"
   echo "  (OAuth callback on port 11451)"
   echo
   echo -e "${YELLOW}📋 Available login and import flags (from ./cliproxyapi --help):${NC}"
@@ -133,7 +133,7 @@ manage_documentation() {
   echo "========================"
 
   if ! is_installed; then
-    log_error "CLIProxyAPI is not installed. Install it first to manage documentation."
+    log_error "CLIProxyAPIPlus is not installed. Install it first to manage documentation."
     exit 1
   fi
 
@@ -257,7 +257,7 @@ show_api_key_setup() {
   echo
   echo -e "${YELLOW}🔑 IMPORTANT: API Keys Required Before First Run${NC}"
   echo
-  echo -e "${BLUE}Before starting CLIProxyAPI, you need to configure API keys in config.yaml:${NC}"
+  echo -e "${BLUE}Before starting CLIProxyAPIPlus, you need to configure API keys in config.yaml:${NC}"
   echo
   echo -e "${GREEN}1. Edit the configuration file:${NC}"
   echo -e "   ${CYAN}nano ${INSTALL_DIR}/config.yaml${NC}"
@@ -289,7 +289,7 @@ show_quick_start() {
   local install_dir="$1"
   echo
   echo -e "${GREEN}🚀 Quick Start Guide:${NC}"
-  echo -e "${BLUE}1. Navigate to CLIProxyAPI:${NC}"
+  echo -e "${BLUE}1. Navigate to CLIProxyAPIPlus:${NC}"
   echo -e "   ${CYAN}cd $install_dir${NC}"
   echo
 
@@ -301,11 +301,11 @@ show_quick_start() {
     echo -e "${BLUE}2. Set up authentication (choose one or more):${NC}"
   fi
 
-  echo -e "   ${CYAN}./cli-proxy-api --login${NC}           # For Gemini"
-  echo -e "   ${CYAN}./cli-proxy-api --codex-login${NC}     # For OpenAI"
-  echo -e "   ${CYAN}./cli-proxy-api --claude-login${NC}    # For Claude"
-  echo -e "   ${CYAN}./cli-proxy-api --qwen-login${NC}      # For Qwen"
-  echo -e "   ${CYAN}./cli-proxy-api --iflow-login${NC}     # For iFlow"
+  echo -e "   ${CYAN}./cli-proxy-api-plus --login${NC}           # For Gemini"
+  echo -e "   ${CYAN}./cli-proxy-api-plus --codex-login${NC}     # For OpenAI"
+  echo -e "   ${CYAN}./cli-proxy-api-plus --claude-login${NC}    # For Claude"
+  echo -e "   ${CYAN}./cli-proxy-api-plus --qwen-login${NC}      # For Qwen"
+  echo -e "   ${CYAN}./cli-proxy-api-plus --iflow-login${NC}     # For iFlow"
   echo
   echo -e "${YELLOW}📋 Available login and import flags (from ./cliproxyapi --help):${NC}"
   echo -e "   ${CYAN}--antigravity-login${NC}     - Login to Antigravity using OAuth"
@@ -351,7 +351,7 @@ show_quick_start() {
     echo -e "   ${CYAN}nano config.yaml${NC}              # Edit API keys"
     echo
     echo -e "${BLUE}4. Start the service:${NC}"
-    echo -e "   ${CYAN}./cli-proxy-api${NC}"
+    echo -e "   ${CYAN}./cli-proxy-api-plus${NC}"
     echo
     echo -e "${BLUE}5. Or run as a systemd service:${NC}"
     echo -e "   ${CYAN}systemctl --user enable cliproxyapi.service${NC}"
@@ -362,7 +362,7 @@ show_quick_start() {
     echo -e "   ${CYAN}https://github.com/router-for-me/CLIProxyAPIPlus${NC}"
   else
     echo -e "${BLUE}3. Start the service:${NC}"
-    echo -e "   ${CYAN}./cli-proxy-api${NC}"
+    echo -e "   ${CYAN}./cli-proxy-api-plus${NC}"
     echo
     echo -e "${BLUE}4. Or run as a systemd service:${NC}"
     echo -e "   ${CYAN}systemctl --user enable cliproxyapi.service${NC}"
@@ -526,15 +526,15 @@ is_service_running() {
   systemctl --user is-active --quiet cliproxyapi.service 2>/dev/null
 }
 
-# Check if any CLIProxyAPI processes are running
+# Check if any CLIProxyAPIPlus processes are running
 is_cliproxyapi_running() {
-  pgrep -f "cli-proxy-api" >/dev/null 2>&1
+  pgrep -f "cli-proxy-api-plus" >/dev/null 2>&1
 }
 
-# Stop any running CLIProxyAPI processes
+# Stop any running CLIProxyAPIPlus processes
 stop_cliproxyapi_processes() {
   local pids
-  pids=$(pgrep -f "cli-proxy-api" 2>/dev/null || true)
+  pids=$(pgrep -f "cli-proxy-api-plus" 2>/dev/null || true)
 
   if [[ -n "$pids" ]]; then
     log_info "Stopping running CLIProxyAPIPlus processes..."
@@ -550,7 +550,7 @@ stop_cliproxyapi_processes() {
 
     # Check if any processes are still running and force kill if needed
     local remaining_pids
-    remaining_pids=$(pgrep -f "cli-proxy-api" 2>/dev/null || true)
+    remaining_pids=$(pgrep -f "cli-proxy-api-plus" 2>/dev/null || true)
     if [[ -n "$remaining_pids" ]]; then
       log_warning "Some processes didn't stop gracefully, force killing..."
       echo "$remaining_pids" | while read -r pid; do
@@ -581,7 +581,7 @@ stop_service() {
 
 # Start systemd service
 start_service() {
-  log_info "Starting CLIProxyAPI service..."
+  log_info "Starting CLIProxyAPIPlus service..."
   systemctl --user start cliproxyapi.service
 
   # Wait a moment and check if it started successfully
@@ -595,7 +595,7 @@ start_service() {
 
 # Restart systemd service
 restart_service() {
-  log_info "Restarting CLIProxyAPI service..."
+  log_info "Restarting CLIProxyAPIPlus service..."
   systemctl --user restart cliproxyapi.service
 
   # Wait a moment and check if it started successfully
@@ -622,13 +622,13 @@ create_systemd_service() {
   # Create service file content with basic working configuration
   cat >"$service_file" <<EOF
 [Unit]
-Description=CLIProxyAPI Service
+Description=CLIProxyAPIPlus Service
 After=network.target
 
 [Service]
 Type=simple
 WorkingDirectory=$install_dir
-ExecStart=$install_dir/cli-proxy-api
+ExecStart=$install_dir/cli-proxy-api-plus
 Restart=always
 RestartSec=10
 Environment=HOME=$HOME
@@ -660,12 +660,12 @@ setup_config() {
 
   local config="${INSTALL_DIR}/config.yaml"
   local example_config="${version_dir}/config.example.yaml"
-  local executable="${version_dir}/cli-proxy-api"
+  local executable="${version_dir}/cli-proxy-api-plus"
 
   # Copy executable to main directory
   if [[ -f "$executable" ]]; then
-    cp "$executable" "${INSTALL_DIR}/cli-proxy-api"
-    log_success "Copied executable to ${INSTALL_DIR}/cli-proxy-api"
+    cp "$executable" "${INSTALL_DIR}/cli-proxy-api-plus"
+    log_success "Copied executable to ${INSTALL_DIR}/cli-proxy-api-plus"
   fi
 
   # PRIORITY 1: If we have a backup from this upgrade, restore it
@@ -785,10 +785,10 @@ make_executable() {
   local version_dir="$1"
 
   local binary
-  binary=$(find "$version_dir" -name "CLIProxyAPIPlus" -o -name "cli-proxy-api" -type f | head -1)
+  binary=$(find "$version_dir" -name "CLIProxyAPIPlus" -o -name "cli-proxy-api-plus" -type f | head -1)
   if [[ -n "$binary" ]]; then
     chmod +x "$binary"
-    log_success "Made CLIProxyAPI binary executable"
+    log_success "Made CLIProxyAPIPlus binary executable"
   fi
 }
 
@@ -800,7 +800,7 @@ install_cliproxyapi() {
   local service_was_running=false
 
   if [[ "$current_version" != "none" ]]; then
-    log_info "Current CLIProxyAPI version: $current_version"
+    log_info "Current CLIProxyAPIPlus version: $current_version"
     is_upgrade=true
 
     # Check if service is running before upgrade
@@ -809,7 +809,7 @@ install_cliproxyapi() {
       log_info "Service is currently running and will be restarted after upgrade"
     fi
   else
-    log_info "CLIProxyAPI not installed, performing fresh installation"
+    log_info "CLIProxyAPIPlus not installed, performing fresh installation"
   fi
 
   # Check dependencies
@@ -834,7 +834,7 @@ install_cliproxyapi() {
 
   # Check if already up to date
   if [[ "$is_upgrade" == true && "$current_version" == "$version" ]]; then
-    log_success "CLIProxyAPI is already up to date (version $version)"
+    log_success "CLIProxyAPIPlus is already up to date (version $version)"
     return
   fi
 
@@ -875,7 +875,7 @@ install_cliproxyapi() {
   setup_config "$version_dir" "$backup_file"
 
   # Make main executable executable
-  chmod +x "${INSTALL_DIR}/cli-proxy-api"
+  chmod +x "${INSTALL_DIR}/cli-proxy-api-plus"
 
   # Create/update systemd service file
   create_systemd_service "$INSTALL_DIR"
@@ -893,7 +893,7 @@ install_cliproxyapi() {
 
   # Success message
   if [[ "$is_upgrade" == true ]]; then
-    log_success "CLIProxyAPI upgraded from $current_version to $version!"
+    log_success "CLIProxyAPIPlus upgraded from $current_version to $version!"
     log_info "Installation directory: $INSTALL_DIR"
 
     if [[ "$service_was_running" == true ]]; then
@@ -910,10 +910,10 @@ install_cliproxyapi() {
       show_quick_start "$INSTALL_DIR"
     else
       log_info "Your existing configuration has been preserved"
-      log_info "To use CLIProxyAPI: cd $INSTALL_DIR && ./cli-proxy-api --help"
+      log_info "To use CLIProxyAPIPlus: cd $INSTALL_DIR && ./cli-proxy-api-plus --help"
     fi
   else
-    log_success "CLIProxyAPI $version installed successfully!"
+    log_success "CLIProxyAPIPlus $version installed successfully!"
     log_info "Installation directory: $INSTALL_DIR"
 
     # Show authentication information for first-time setup
@@ -927,7 +927,7 @@ show_status() {
   local current_version
   current_version=$(get_current_version)
 
-  echo "CLIProxyAPI Installation Status"
+  echo "CLIProxyAPIPlus Installation Status"
   echo "=============================="
   echo "Install Directory: $INSTALL_DIR"
   echo "Current Version: $current_version"
@@ -943,8 +943,8 @@ show_status() {
       echo "Configuration: Missing"
     fi
 
-    if [[ -f "${INSTALL_DIR}/cli-proxy-api" ]]; then
-      echo "Executable: Present (at ${INSTALL_DIR}/cli-proxy-api)"
+    if [[ -f "${INSTALL_DIR}/cli-proxy-api-plus" ]]; then
+      echo "Executable: Present (at ${INSTALL_DIR}/cli-proxy-api-plus)"
     else
       echo "Executable: Missing"
     fi
@@ -977,11 +977,11 @@ show_status() {
 # Uninstall function
 uninstall_cliproxyapi() {
   if [[ ! -d "$INSTALL_DIR" ]]; then
-    log_warning "CLIProxyAPI installation directory not found: $INSTALL_DIR"
+    log_warning "CLIProxyAPIPlus installation directory not found: $INSTALL_DIR"
     exit 0
   fi
 
-  log_info "CLIProxyAPI installation found at: $INSTALL_DIR"
+  log_info "CLIProxyAPIPlus installation found at: $INSTALL_DIR"
 
   # Show what will be removed
   echo
@@ -990,7 +990,7 @@ uninstall_cliproxyapi() {
   echo
 
   # Ask for confirmation
-  read -p "Are you sure you want to remove CLIProxyAPI? (y/N): " -n 1 -r
+  read -p "Are you sure you want to remove CLIProxyAPIPlus? (y/N): " -n 1 -r
   echo
 
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -999,10 +999,10 @@ uninstall_cliproxyapi() {
   fi
 
   # Remove installation directory
-  log_info "Removing CLIProxyAPI installation..."
+  log_info "Removing CLIProxyAPIPlus installation..."
   rm -rf "$INSTALL_DIR"
 
-  log_success "CLIProxyAPI has been uninstalled successfully"
+  log_success "CLIProxyAPIPlus has been uninstalled successfully"
 }
 
 # Cleanup function on exit
@@ -1049,9 +1049,9 @@ main() {
         echo -e "${BLUE}Current API keys in config.yaml:${NC}"
         grep -A 10 "^api-keys:" "${INSTALL_DIR}/config.yaml" | grep -v "^#" | head -10
         echo
-        echo -e "${BLUE}You can now start CLIProxyAPI:${NC}"
+        echo -e "${BLUE}You can now start CLIProxyAPIPlus:${NC}"
         echo -e "  ${CYAN}cd ${INSTALL_DIR}${NC}"
-        echo -e "  ${CYAN}./cli-proxy-api${NC}"
+        echo -e "  ${CYAN}./cli-proxy-api-plus${NC}"
         echo
         echo -e "${BLUE}Or run as a service:${NC}"
         echo -e "  ${CYAN}systemctl --user start cliproxyapi.service${NC}"
@@ -1062,7 +1062,7 @@ main() {
         show_api_key_setup
       fi
     else
-      log_error "CLIProxyAPI is not installed"
+      log_error "CLIProxyAPIPlus is not installed"
       echo "Install it first with: $SCRIPT_NAME install"
     fi
     ;;
@@ -1088,22 +1088,22 @@ main() {
     ;;
   "-h" | "--help")
     cat <<EOF
- CLIProxyAPI Linux Installer
+ CLIProxyAPIPlus Linux Installer
 
 Usage: $SCRIPT_NAME [COMMAND] [OPTIONS]
 
 Commands:
-  install, upgrade    Install or upgrade CLIProxyAPI (default)
+  install, upgrade    Install or upgrade CLIProxyAPIPlus (default)
   status             Show current installation status
   auth               Show authentication setup information
   check-config       Check configuration and API keys
   generate-key       Generate new API key and show it
   manage-docs        Manage documentation (update, organize, check consistency)
-  uninstall          Remove CLIProxyAPI completely
+  uninstall          Remove CLIProxyAPIPlus completely
   -h, --help         Show this help message
 
 Description:
-  This Linux-specific script installs, upgrades, or removes CLIProxyAPI.
+  This Linux-specific script installs, upgrades, or removes CLIProxyAPIPlus.
   It can be run from anywhere and automatically detects your Linux architecture.
 
   During upgrades, your config.yaml file is preserved automatically.
