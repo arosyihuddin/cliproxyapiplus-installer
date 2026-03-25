@@ -32,7 +32,7 @@ cd cliproxyapiplus-installer
 1. **Configure API keys** (if not automatically generated):
 
    ```bash
-   cd ~/cliproxyapi
+   cd ~/cliproxyapiplus
    nano config.yaml
    ```
 
@@ -116,10 +116,10 @@ The installer script supports multiple commands:
 
 ### Installation Directory
 
-CLIProxyAPI is installed to `~/cliproxyapi/` with the following structure:
+CLIProxyAPI is installed to `~/cliproxyapiplus/` with the following structure:
 
 ```
-~/cliproxyapi/
+~/cliproxyapiplus/
 ├── cli-proxy-api          # Main executable
 ├── config.yaml            # Configuration file
 ├── cliproxyapi.service    # Systemd service file
@@ -135,7 +135,7 @@ The installer automatically generates secure API keys in OpenAI format (`sk-...`
 To view or modify your API keys:
 
 ```bash
-cd ~/cliproxyapi
+cd ~/cliproxyapiplus
 nano config.yaml
 ```
 
@@ -393,10 +393,10 @@ ls -la ~/.config/systemd/user/cliproxyapi.service
    ```bash
    # If your config was accidentally overwritten (should never happen)
    # Check backup directory
-   ls -la ~/cliproxyapi/config_backup/
+   ls -la ~/cliproxyapiplus/config_backup/
 
    # Restore from latest backup
-   cp ~/cliproxyapi/config_backup/config_YYYYMMDD_HHMMSS.yaml ~/cliproxyapi/config.yaml
+   cp ~/cliproxyapiplus/config_backup/config_YYYYMMDD_HHMMSS.yaml ~/cliproxyapiplus/config.yaml
 
    # Restart service after restoring
    systemctl --user restart cliproxyapi.service
